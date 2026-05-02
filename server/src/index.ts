@@ -59,6 +59,10 @@ app.use((req, _res, next) => {
   next();
 });
 
+app.get('/', (_req, res) => {
+  res.send('<h1>🚀 MockVault API is running</h1><p>The API is available at <a href="/api/health">/api/health</a></p>');
+});
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'mockvault-api' });
 });
