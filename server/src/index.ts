@@ -17,15 +17,17 @@ import { errorHandler } from './middleware/error.middleware';
 
 dotenv.config();
 
+const clientOrigin = process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.replace(/\/$/, '') : '*';
+
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: process.env.CLIENT_ORIGIN || '*' }
+  cors: { origin: clientOrigin }
 });
 
 // Middleware
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
+app.use(cors({ origin: clientOrigin }));
 app.use(express.json());
 
 // Prevent NoSQL injection attacks
